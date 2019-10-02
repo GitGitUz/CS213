@@ -18,10 +18,12 @@ public class Controller {
 	private TextField nmeField, artField, albField, yearField;
 	
 	@FXML 
-	private ListView<Song> songList;
+	private ListView<Song> songsList;
 	
 	@FXML
 	private Button addBtn, editBtn, delBtn, saveBtn, cancBtn;
 	
-	public void start(SongLib songlib) {}
+	public void start(SongLib songlib) {
+		
+	}
 }

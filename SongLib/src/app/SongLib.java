@@ -3,9 +3,9 @@ package app;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-import view.Controller;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.Scene;
+import view.Controller;
 
 public class SongLib extends Application {
 	

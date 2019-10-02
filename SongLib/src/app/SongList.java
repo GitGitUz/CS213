@@ -1,5 +1,10 @@
 package app;
 
+import javafx.collections.ObservableList;
+
 public class SongList {
-	boolean n1 = false;
+	
+	public ObservableList<Song> songList;
+	
+	
 }
