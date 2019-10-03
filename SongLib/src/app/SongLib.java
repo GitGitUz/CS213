@@ -26,11 +26,14 @@ public class SongLib extends Application {
 			SongList sList = new SongList();
 			
 			Song tempSong = new Song("90210", "Travis Scott", "Rodeo", "2015");
-			Song tempSong2 = new Song("What Makes You Beautiful", "One Direction", "Up All Night", "2012");
+			Song tempSong2 = new Song("Self Control", "Frank Ocean", "Blonde", "2016");
+			Song tempSong3 = new Song("Numb", "Linkin Park", "Meteora", "2003");
+
 			
 			ArrayList<Song> tempAList = new ArrayList<Song>();
-			tempAList.add(tempSong);
+			tempAList.add(tempSong3);
 			tempAList.add(tempSong2);
+			tempAList.add(tempSong);
 			
 			ObservableList<Song> tempOList = FXCollections.observableArrayList();
 			tempOList.addAll(tempAList);

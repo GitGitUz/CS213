@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -40,10 +42,11 @@ public class Controller {
 	public void start(AnchorPane root, SongList sLib) {
 		this.sLib = sLib;
 		
-		saveBtn.setVisible(false);
-		cancBtn.setVisible(false);
 		editBtn.setVisible(false);
 		delBtn.setVisible(false);
+		saveBtn.setVisible(false);
+		cancBtn.setVisible(false);
+		
 		
 		nmeField.setVisible(false);
 		artField.setVisible(false);
@@ -115,6 +118,150 @@ public class Controller {
 		}
 	}
 	
+	public void saveBtnClick(ActionEvent ae) {
+		Button temp = (Button) ae.getSource();
+		
+		if(temp == saveBtn && whichBtn == 1) { // add button clicked
+			String songName = nmeField.getText();
+			String artistName = artField.getText();
+			String albumName = albField.getText();
+			String year = yearField.getText();
+			
+			Song tSong = new Song(songName, artistName, albumName, year);
+			
+			if(albumName.isEmpty()) {
+				albumName = "Not Specified";
+			}
+			
+			if(year.isEmpty()) {
+				year = "Not Specified";
+			}
+			
+			boolean success = sLib.add(songName, artistName, albumName, year);
+			
+			whichBtn = 0;
+			addBtn.setVisible(true);
+			saveBtn.setVisible(false);
+			cancBtn.setVisible(false);
+			
+			if(success == true) {
+				sListView.setItems(sLib.songList.sorted());
+				sListView.refresh();
+				
+				nmeText.setVisible(false);
+				artText.setVisible(false);
+				albText.setVisible(false);
+				yearText.setVisible(false);
+				
+				nmeField.setEditable(false);
+				artField.setEditable(false);
+				albField.setEditable(false);
+				yearField.setEditable(false);
+				
+				nmeField.setVisible(false);
+				artField.setVisible(false);
+				albField.setVisible(false);
+				yearField.setVisible(false);
+				
+				sListView.getSelectionModel().select(sLib.songList.indexOf(tSong));
+				
+			}else { // alert the user
+				addBtn.setVisible(false);
+
+				Alert error = new Alert(AlertType.ERROR);
+				error.initOwner(mainStage);
+				error.setTitle("404 Error: 2 Possible Reasons");
+				error.setHeaderText("1 - Invalid song addition, please provide both a Name and Artist\n2 - Song already in library");
+				error.showAndWait();
+				
+				whichBtn = 1;
+				saveBtn.setVisible(true);
+				cancBtn.setVisible(true);
+				
+				/*nmeText.setVisible(false);
+				artText.setVisible(false);
+				albText.setVisible(false);
+				yearText.setVisible(false);
+				
+				nmeField.setEditable(false);
+				artField.setEditable(false);
+				albField.setEditable(false);
+				yearField.setEditable(false);
+				
+				nmeField.setVisible(false);
+				artField.setVisible(false);
+				albField.setVisible(false);
+				yearField.setVisible(false);*/
+			}
+			
+		}else if(temp == saveBtn && whichBtn == 2) { // edit button clicked
+			String songName = nmeField.getText();
+			String artistName = artField.getText();
+			String albumName = albField.getText();
+			String year = yearField.getText();
+			
+			if(albumName.isEmpty()) {
+				albumName = "Not Specified";
+			}
+			
+			if(year.isEmpty()) {
+				year = "Not Specified";
+			}
+			
+			boolean success = sLib.edit(currentSong, songName, artistName, albumName, year);
+			
+			whichBtn = 0;
+			
+			saveBtn.setVisible(false);
+			cancBtn.setVisible(false);
+			addBtn.setVisible(true);
+			
+			if(success == true) {
+				sListView.setItems(sLib.songList.sorted());
+				sListView.refresh();
+				
+				nmeText.setVisible(false);
+				artText.setVisible(false);
+				albText.setVisible(false);
+				yearText.setVisible(false);
+				
+				nmeField.setEditable(false);
+				artField.setEditable(false);
+				albField.setEditable(false);
+				yearField.setEditable(false);
+				
+				nmeField.setVisible(false);
+				artField.setVisible(false);
+				albField.setVisible(false);
+				yearField.setVisible(false);
+				
+				sListView.getSelectionModel().select(sLib.songList.indexOf(currentSong));
+				
+			}else { // alert the user
+				
+			}
+			
+		}else if(temp == saveBtn && whichBtn == 3) { // delete button clicked
+			boolean success = sLib.delete(currentSong);
+			
+			whichBtn = 0;
+			
+			saveBtn.setVisible(false);
+			cancBtn.setVisible(false);
+			addBtn.setVisible(true);
+			
+			if(success == true) {
+				sListView.setItems(sLib.songList.sorted());
+				sListView.refresh();
+				if(sListView.getSelectionModel().getSelectedIndex() != 0) {
+					sListView.getSelectionModel().selectNext();
+				}
+			}
+		}else {
+			
+		}
+	}
+	
 	public void addBtnClick(ActionEvent ae) {
 		Button temp = (Button) ae.getSource();
 		
@@ -166,6 +313,11 @@ public class Controller {
 			albField.setEditable(true);
 			yearField.setEditable(true);
 			
+			nmeField.setText(nmeLabel.getText());
+			artField.setText(artLabel.getText());
+			albField.setText(albLabel.getText());
+			yearField.setText(yearLabel.getText());
+			
 			nmeText.setVisible(true);
 			artText.setVisible(true);
 			albText.setVisible(true);
@@ -190,54 +342,7 @@ public class Controller {
 		}
 	}
 
-	public int saveBtnClick(ActionEvent ae) {
-		Button temp = (Button) ae.getSource();
-		
-		if(temp == saveBtn && whichBtn == 1) { //add button pressed
-			String songName = nmeField.getText();
-			String artistName = artField.getText();
-			String albumName = albField.getText();
-			String year = yearField.getText();
-			
-			Song tempSong = new Song(songName, artistName, albumName, year);
-			
-			if(albumName == "") {
-				albumName = "Not Specified";
-			}
-			
-			
-			if(year == "") {
-				year = "Not Specified";
-			}
-			
-			boolean success = sLib.add(songName, artistName, albumName, year);
-			
-			whichBtn = 0;
-			addBtn.setVisible(true);
-			saveBtn.setVisible(false);
-			cancBtn.setVisible(false);
-			
-			if(success == true) {
-				sListView.setItems(sLib.songList.sorted());
-				sListView.refresh();
-				System.out.println(songsList.contains(tempSong));
-				sListView.getSelectionModel().select(songsList.sorted().indexOf(tempSong));
-				return 1;
-			}else {
-				return 0;
-			}
-		}else if(temp == saveBtn && whichBtn == 2) { //edit button pressed
-			
-		}else if(temp == saveBtn && whichBtn == 3) { //delete button pressed
-			
-		}else {
-			return 0;
-		}
-		
-		return 0;
-	}
-
-	public int cancelBtnClick(ActionEvent ae) {
+	public void cancelBtnClick(ActionEvent ae) {
 		Button temp = (Button) ae.getSource();
 		
 		if(temp == cancBtn) {
@@ -260,8 +365,8 @@ public class Controller {
 			cancBtn.setVisible(false);
 			saveBtn.setVisible(false);
 			addBtn.setVisible(true);
-			
+			editBtn.setVisible(true);
+			delBtn.setVisible(true);
 		}
-		return 0;
 	}
 }

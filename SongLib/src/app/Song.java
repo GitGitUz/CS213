@@ -47,17 +47,25 @@ public class Song implements Comparable<Song> {
 		return year;
 	}
 
-	@Override
-	public int compareTo(Song s) {
-		return this.name.compareTo(s.name);
-	}
-	
 	public boolean isDuplicate(Song s) {
 		if(s.name.equalsIgnoreCase(this.name) && s.artist.equalsIgnoreCase(this.artist)) {
 			return true;
 		}
 		return false;
 	}
+	
+	@Override
+	public int compareTo(Song s) {
+		return this.name.compareTo(s.name);
+	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        return (this.name == ((Song) obj).name && this.artist == ((Song) obj).artist);
+    }
 	
 	@Override
     public int hashCode() {

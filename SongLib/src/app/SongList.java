@@ -8,7 +8,7 @@ public class SongList {
 	
 	public boolean add(String name, String artist, String album, String year) {
 		
-		if(name.isBlank() || artist.isBlank()) {
+		if(name.isEmpty() || artist.isEmpty()) {
 			return false;
 		}
 		

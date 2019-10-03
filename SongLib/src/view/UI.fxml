@@ -192,7 +192,7 @@
                               </GridPane>
                               <HBox layoutX="82.0" layoutY="180.0" prefHeight="34.0" prefWidth="106.0">
                                  <children>
-                                    <Button fx:id="saveBtn" mnemonicParsing="false" text="Save">
+                                    <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveBtnClick" text="Save">
                                        <HBox.margin>
                                           <Insets left="5.0" top="5.0" />
                                        </HBox.margin>
