@@ -22,7 +22,7 @@ public class Controller {
 	Label nmeLabel, artLabel, albLabel, yearLabel;
 	
 	@FXML
-	Text nmeText, artText, albText, yearText;
+	Text nmeText, artText, albText, yearText, nmeDetText, artDetText, albDetText, yearDetText;
 	
 	@FXML
 	TextField nmeField, artField, albField, yearField;
@@ -90,7 +90,6 @@ public class Controller {
 		});
 		
 		sListView.setMaxWidth(50.0);
-//		root.getChildren().add(sListView);
 		sListView.getSelectionModel().selectedItemProperty()
 				.addListener((obs, oldVal, newVal) -> showSongDetails(mainStage));
 
@@ -148,6 +147,11 @@ public class Controller {
 				sListView.setItems(sLib.songList.sorted());
 				sListView.refresh();
 				
+				nmeDetText.setVisible(true);
+				artDetText.setVisible(true);
+				albDetText.setVisible(true);
+				yearDetText.setVisible(true);
+				
 				nmeText.setVisible(false);
 				artText.setVisible(false);
 				albText.setVisible(false);
@@ -163,7 +167,12 @@ public class Controller {
 				albField.setVisible(false);
 				yearField.setVisible(false);
 				
-				sListView.getSelectionModel().select(sLib.songList.indexOf(tSong));
+				nmeField.clear();
+				artField.clear();
+				albField.clear();
+				yearField.clear();
+				
+				sListView.getSelectionModel().select(sLib.songList.sorted().indexOf(tSong));
 				
 			}else { // alert the user
 				addBtn.setVisible(false);
@@ -174,24 +183,9 @@ public class Controller {
 				error.setHeaderText("1 - Invalid song addition, please provide both a Name and Artist\n2 - Song already in library");
 				error.showAndWait();
 				
-				whichBtn = 1;
 				saveBtn.setVisible(true);
 				cancBtn.setVisible(true);
 				
-				/*nmeText.setVisible(false);
-				artText.setVisible(false);
-				albText.setVisible(false);
-				yearText.setVisible(false);
-				
-				nmeField.setEditable(false);
-				artField.setEditable(false);
-				albField.setEditable(false);
-				yearField.setEditable(false);
-				
-				nmeField.setVisible(false);
-				artField.setVisible(false);
-				albField.setVisible(false);
-				yearField.setVisible(false);*/
 			}
 			
 		}else if(temp == saveBtn && whichBtn == 2) { // edit button clicked
@@ -225,6 +219,11 @@ public class Controller {
 				albText.setVisible(false);
 				yearText.setVisible(false);
 				
+				nmeField.clear();
+				artField.clear();
+				albField.clear();
+				yearField.clear();
+				
 				nmeField.setEditable(false);
 				artField.setEditable(false);
 				albField.setEditable(false);
@@ -235,13 +234,28 @@ public class Controller {
 				albField.setVisible(false);
 				yearField.setVisible(false);
 				
-				sListView.getSelectionModel().select(sLib.songList.indexOf(currentSong));
+				sListView.getSelectionModel().selectFirst();
 				
 			}else { // alert the user
+				addBtn.setVisible(false);
+				editBtn.setVisible(false);
+				delBtn.setVisible(false);
 				
+				Alert error = new Alert(AlertType.ERROR);
+				error.initOwner(mainStage);
+				error.setTitle("404 Error: Invalid Edit");
+				error.setHeaderText("Need both a Name and Artist");
+				error.showAndWait();
+				
+				whichBtn = 2;
+				
+				
+				saveBtn.setVisible(true);
+				cancBtn.setVisible(true);
 			}
 			
 		}else if(temp == saveBtn && whichBtn == 3) { // delete button clicked
+			
 			boolean success = sLib.delete(currentSong);
 			
 			whichBtn = 0;
@@ -253,8 +267,28 @@ public class Controller {
 			if(success == true) {
 				sListView.setItems(sLib.songList.sorted());
 				sListView.refresh();
-				if(sListView.getSelectionModel().getSelectedIndex() != 0) {
+				if(sListView.getSelectionModel().getSelectedIndex() == 0) {
+					System.out.println("Test");
 					sListView.getSelectionModel().selectNext();
+				}
+				
+				if(sLib.songList.size() == 0) {
+					
+					nmeLabel.setText("");
+					artLabel.setText("");
+					albLabel.setText("");
+					yearLabel.setText("");
+					
+					nmeLabel.setVisible(false);
+					artLabel.setVisible(false);
+					albLabel.setVisible(false);
+					yearLabel.setVisible(false);
+					
+					nmeDetText.setVisible(false);
+					artDetText.setVisible(false);
+					albDetText.setVisible(false);
+					yearDetText.setVisible(false);
+					
 				}
 			}
 		}else {
@@ -346,6 +380,11 @@ public class Controller {
 		Button temp = (Button) ae.getSource();
 		
 		if(temp == cancBtn) {
+			
+			nmeField.clear();
+			artField.clear();
+			albField.clear();
+			yearField.clear();
 			
 			nmeField.setVisible(false);
 			artField.setVisible(false);

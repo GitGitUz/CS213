@@ -62,7 +62,7 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.rowIndex="1">
+                                    <Text fx:id="nmeDetText" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.rowIndex="1">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -70,7 +70,7 @@
                                           <Insets left="10.0" />
                                        </GridPane.margin>
                                     </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Artist" GridPane.rowIndex="2">
+                                    <Text fx:id="artDetText" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist" GridPane.rowIndex="2">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -78,7 +78,7 @@
                                           <Insets left="10.0" />
                                        </GridPane.margin>
                                     </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Album" GridPane.rowIndex="3">
+                                    <Text fx:id="albDetText" strokeType="OUTSIDE" strokeWidth="0.0" text="Album" GridPane.rowIndex="3">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -86,7 +86,7 @@
                                           <Insets left="10.0" />
                                        </GridPane.margin>
                                     </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Year" GridPane.rowIndex="4">
+                                    <Text fx:id="yearDetText" strokeType="OUTSIDE" strokeWidth="0.0" text="Year" GridPane.rowIndex="4">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
