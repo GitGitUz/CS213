@@ -4,14 +4,19 @@ import javafx.collections.ObservableList;
 
 public class SongList {
 	
-	private ObservableList<Song> songList;
+	public ObservableList<Song> songList;
 	
 	public boolean add(String name, String artist, String album, String year) {
-		if(name.isBlank()||artist.isBlank()) {return false;}
+		
+		if(name.isBlank() || artist.isBlank()) {
+			return false;
+		}
+		
 		Song sng = new Song(name,artist,album,year);
 		for(Song s : songList) {
-			if(s.isDuplicate(sng))
+			if(s.isDuplicate(sng)) {
 				return false;
+			}
 		}
 		return songList.add(sng);
 	}
@@ -28,7 +33,5 @@ public class SongList {
 	public boolean delete(Song sng) {
 		return songList.remove(sng);
 	}
-	
-	
 	
 }

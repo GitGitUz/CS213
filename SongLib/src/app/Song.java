@@ -4,15 +4,15 @@ public class Song implements Comparable<Song> {
 	
 	private String name;
 	private String artist;
-	private String year;
 	private String album;
+	private String year;
 	
-	public Song(String name, String artist, String year, String album) {
+	public Song(String name, String artist, String album, String year) {
 		super();
 		this.name = name;
 		this.artist = artist;
-		this.year = year;
 		this.album = album;
+		this.year = year;
 	}
 	
 	public void setName(String nme) {
@@ -58,4 +58,14 @@ public class Song implements Comparable<Song> {
 		}
 		return false;
 	}
+	
+	@Override
+    public int hashCode() {
+        return 11 + 7*name.hashCode() * artist.hashCode();
+    }
+	
+	public String toString() {
+		return name + " - " + artist;
+	}
+	
 }

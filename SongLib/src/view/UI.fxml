@@ -20,7 +20,7 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <ListView fx:id="songList" prefHeight="498.4" prefWidth="246.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <ListView fx:id="sListView" prefHeight="498.4" prefWidth="246.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -107,17 +107,17 @@
                            <children>
                               <HBox layoutY="219.0" prefHeight="51.0" prefWidth="270.0">
                                  <children>
-                                    <Button fx:id="addBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="49.0" text="Add">
+                                    <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addBtnClick" prefHeight="26.0" prefWidth="49.0" text="Add">
                                        <HBox.margin>
                                           <Insets left="15.0" top="10.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button fx:id="editBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="52.0" text="Edit">
+                                    <Button fx:id="editBtn" mnemonicParsing="false" onAction="#editBtnClick" prefHeight="26.0" prefWidth="52.0" text="Edit">
                                        <HBox.margin>
                                           <Insets left="40.0" top="10.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button fx:id="delBtn" mnemonicParsing="false" text="Delete">
+                                    <Button fx:id="delBtn" mnemonicParsing="false" onAction="#deleteBtnClick" text="Delete">
                                        <HBox.margin>
                                           <Insets left="40.0" top="10.0" />
                                        </HBox.margin>
@@ -136,7 +136,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                                    <Text fx:id="nmeText" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -144,7 +144,7 @@
                                           <Insets left="10.0" />
                                        </GridPane.margin>
                                     </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Artist" GridPane.rowIndex="1">
+                                    <Text fx:id="artText" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist" GridPane.rowIndex="1">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -152,7 +152,7 @@
                                           <Insets left="10.0" />
                                        </GridPane.margin>
                                     </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Album" GridPane.rowIndex="2">
+                                    <Text fx:id="albText" strokeType="OUTSIDE" strokeWidth="0.0" text="Album" GridPane.rowIndex="2">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -160,7 +160,7 @@
                                           <Insets left="10.0" />
                                        </GridPane.margin>
                                     </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Year" GridPane.rowIndex="3">
+                                    <Text fx:id="yearText" strokeType="OUTSIDE" strokeWidth="0.0" text="Year" GridPane.rowIndex="3">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -197,7 +197,7 @@
                                           <Insets left="5.0" top="5.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button fx:id="cancBtn" mnemonicParsing="false" text="Cancel">
+                                    <Button fx:id="cancBtn" mnemonicParsing="false" onAction="#cancelBtnClick" text="Cancel">
                                        <HBox.margin>
                                           <Insets left="5.0" top="5.0" />
                                        </HBox.margin>
