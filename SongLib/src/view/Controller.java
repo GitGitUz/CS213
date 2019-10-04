@@ -129,11 +129,11 @@ public class Controller {
 			Song tSong = new Song(songName, artistName, albumName, year);
 			
 			if(albumName.isEmpty()) {
-				albumName = "Not Specified";
+				albumName = "----------";
 			}
 			
 			if(year.isEmpty()) {
-				year = "Not Specified";
+				year = "----------";
 			}
 			
 			boolean success = sLib.add(songName, artistName, albumName, year);

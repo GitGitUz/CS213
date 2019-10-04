@@ -76,4 +76,8 @@ public class Song implements Comparable<Song> {
 		return name + " - " + artist;
 	}
 	
+	public String toFileString() {
+		return name + "," + artist + "," + album + "," + year;
+	}
+	
 }

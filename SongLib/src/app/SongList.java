@@ -8,7 +8,7 @@ public class SongList {
 	
 	public boolean add(String name, String artist, String album, String year) {
 		
-		if(name.isEmpty() || artist.isEmpty()) {
+		if((name.isEmpty() || artist.isEmpty()) || (name.isBlank() || artist.isBlank())) {
 			return false;
 		}
 		
@@ -17,6 +17,9 @@ public class SongList {
 			if(s.isDuplicate(sng)) {
 				return false;
 			}
+			/*if(s.getName() == name) {
+				
+			}*/
 		}
 		return songList.add(sng);
 	}
