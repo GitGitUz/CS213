@@ -144,7 +144,7 @@ public class Controller {
 			cancBtn.setVisible(false);
 			
 			if(success == true) {
-				sListView.setItems(sLib.songList.sorted());
+				sListView.setItems(sLib.songList.sorted(tSong));
 				sListView.refresh();
 				
 				nmeDetText.setVisible(true);
@@ -172,7 +172,7 @@ public class Controller {
 				albField.clear();
 				yearField.clear();
 				
-				sListView.getSelectionModel().select(sLib.songList.sorted().indexOf(tSong));
+				sListView.getSelectionModel().select(sLib.songList.sorted(tSong).indexOf(tSong));
 				
 			}else { // alert the user
 				addBtn.setVisible(false);
@@ -211,7 +211,7 @@ public class Controller {
 			addBtn.setVisible(true);
 			
 			if(success == true) {
-				sListView.setItems(sLib.songList.sorted());
+				sListView.setItems(sLib.songList.sorted(currentSong));
 				sListView.refresh();
 				
 				nmeText.setVisible(false);
@@ -265,10 +265,9 @@ public class Controller {
 			addBtn.setVisible(true);
 			
 			if(success == true) {
-				sListView.setItems(sLib.songList.sorted());
+				sListView.setItems(sLib.songList.sorted(currentSong));
 				sListView.refresh();
 				if(sListView.getSelectionModel().getSelectedIndex() == 0) {
-					System.out.println("Test");
 					sListView.getSelectionModel().selectNext();
 				}
 				

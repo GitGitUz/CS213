@@ -1,6 +1,8 @@
 package app;
 
-public class Song implements Comparable<Song> {
+import java.util.Comparator;
+
+public class Song implements Comparator<Song> {
 	
 	private String name;
 	private String artist;
@@ -54,10 +56,6 @@ public class Song implements Comparable<Song> {
 		return false;
 	}
 	
-	@Override
-	public int compareTo(Song s) {
-		return this.name.compareTo(s.name);
-	}
 	
 	@Override
     public boolean equals(Object obj) {
@@ -78,6 +76,13 @@ public class Song implements Comparable<Song> {
 	
 	public String toFileString() {
 		return name + "," + artist + "," + album + "," + year;
+	}
+
+	@Override
+	public int compare(Song s1,Song s2) {
+		if(s1.name.compareToIgnoreCase(s2.name) == 0)
+			return s1.artist.compareToIgnoreCase(s2.artist);
+		return s1.name.compareToIgnoreCase(s2.name);
 	}
 	
 }
