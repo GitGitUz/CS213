@@ -1,16 +1,17 @@
 package app;
 
+import app.FileHandler;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.Scene;
+import javafx.event.EventHandler;
 import view.Controller;
 
-import java.util.ArrayList;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.io.File;
 
 public class SongLib extends Application {
 		
@@ -23,22 +24,13 @@ public class SongLib extends Application {
 	
 			Controller controller = loader.getController();
 			
+			File file = new File("songs.csv");
+			if(!(file.exists())) {
+				file.createNewFile();
+			}
+		
 			SongList sList = new SongList();
-			
-			Song tempSong = new Song("90210", "Travis Scott", "Rodeo", "2015");
-			Song tempSong2 = new Song("Self Control", "Frank Ocean", "Blonde", "2016");
-			Song tempSong3 = new Song("Numb", "Linkin Park", "Meteora", "2003");
-
-			
-			ArrayList<Song> tempAList = new ArrayList<Song>();
-			tempAList.add(tempSong3);
-			tempAList.add(tempSong2);
-			tempAList.add(tempSong);
-			
-			ObservableList<Song> tempOList = FXCollections.observableArrayList();
-			tempOList.addAll(tempAList);
-			
-			sList.songList = tempOList;
+			sList.songList = FileHandler.readFromFile(file.getName());
 			
 			controller.start(root, sList);
 			
@@ -46,6 +38,17 @@ public class SongLib extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.show();
+			
+			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent> () {
+				@Override
+				public void handle(WindowEvent event) {
+					try {
+						FileHandler.writeToFile(sList.songList);
+					}catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -16,13 +16,15 @@ import javafx.collections.ObservableList;
 
 public class FileHandler {
 	
-	private static ObservableList<Song> readFromFile(String fileName){
+	public static ObservableList<Song> readFromFile(String fileName) throws Exception{
 		ObservableList<Song> songs = FXCollections.observableArrayList();
 		Path path = Paths.get(fileName);
 		
 		try (BufferedReader br = Files.newBufferedReader(path,
                 StandardCharsets.US_ASCII)) {
 			String line = br.readLine();
+			line = br.readLine();
+
 			while(line != null) {
 				String[] songProperties = line.split(",");
 				Song s = new Song(songProperties[0],songProperties[1],songProperties[2],songProperties[3]);
@@ -35,7 +37,7 @@ public class FileHandler {
 		return songs;
 	}
 	
-	public static void writetoFile(ObservableList<Song> songs) throws IOException {
+	public static void writeToFile(ObservableList<Song> songs) throws IOException {
 		FileWriter creator = new FileWriter("songs.csv");
 		creator.append("Name");
 		creator.append(",");
