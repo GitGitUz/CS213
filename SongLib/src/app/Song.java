@@ -1,5 +1,10 @@
 package app;
 
+/*
+ * Uzair Shaikh & Visshal Suresh 
+ * CS213 - Assignment 1 - Song Library
+ */
+
 import java.util.Comparator;
 
 public class Song implements Comparator<Song> {
@@ -80,8 +85,9 @@ public class Song implements Comparator<Song> {
 
 	@Override
 	public int compare(Song s1,Song s2) {
-		if(s1.name.compareToIgnoreCase(s2.name) == 0)
+		if(s1.name.compareToIgnoreCase(s2.name) == 0) {
 			return s1.artist.compareToIgnoreCase(s2.artist);
+		}
 		return s1.name.compareToIgnoreCase(s2.name);
 	}
 	

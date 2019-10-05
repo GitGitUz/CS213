@@ -1,5 +1,11 @@
 package app;
 
+/*
+ * Uzair Shaikh & Visshal Suresh 
+ * CS213 - Assignment 1 - Song Library
+ */
+
+
 import javafx.collections.ObservableList;
 
 public class SongList {
@@ -34,7 +40,12 @@ public class SongList {
 	}
 	
 	public boolean delete(Song sng) {
-		return songList.remove(sng);
+		if(songList.contains(sng)){
+			songList.remove(sng);
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 }

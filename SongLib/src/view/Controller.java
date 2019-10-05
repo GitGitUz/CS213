@@ -1,5 +1,10 @@
 package view;
 
+/*
+ * Uzair Shaikh & Visshal Suresh 
+ * CS213 - Assignment 1 - Song Library
+ */
+
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,7 +52,6 @@ public class Controller {
 		saveBtn.setVisible(false);
 		cancBtn.setVisible(false);
 		
-		
 		nmeField.setVisible(false);
 		artField.setVisible(false);
 		albField.setVisible(false);
@@ -57,6 +61,11 @@ public class Controller {
 		artField.setEditable(false);
 		albField.setEditable(false);
 		yearField.setEditable(false);
+		
+		nmeDetText.setVisible(false);
+		artDetText.setVisible(false);
+		albDetText.setVisible(false);
+		yearDetText.setVisible(false);
 		
 		nmeText.setVisible(false);
 		artText.setVisible(false);
@@ -176,15 +185,34 @@ public class Controller {
 				
 			}else { // alert the user
 				addBtn.setVisible(false);
+				saveBtn.setVisible(false);
+				cancBtn.setVisible(true);
+				
+				nmeText.setVisible(false);
+				artText.setVisible(false);
+				albText.setVisible(false);
+				yearText.setVisible(false);
+				
+				nmeField.setEditable(false);
+				artField.setEditable(false);
+				albField.setEditable(false);
+				yearField.setEditable(false);
+				
+				nmeField.setVisible(false);
+				artField.setVisible(false);
+				albField.setVisible(false);
+				yearField.setVisible(false);
+				
+				nmeField.clear();
+				artField.clear();
+				albField.clear();
+				yearField.clear();
 
 				Alert error = new Alert(AlertType.ERROR);
 				error.initOwner(mainStage);
-				error.setTitle("404 Error: 2 Possible Reasons");
-				error.setHeaderText("1 - Invalid song addition, please provide both a Name and Artist\n2 - Song already in library");
+				error.setTitle("404 Error: Invalid add");
+				error.setHeaderText("Invalid song addition, please provide both a Name and Artist\nor\nSong already in library");
 				error.showAndWait();
-				
-				saveBtn.setVisible(true);
-				cancBtn.setVisible(true);
 				
 			}
 			
@@ -241,22 +269,40 @@ public class Controller {
 				editBtn.setVisible(false);
 				delBtn.setVisible(false);
 				
+				saveBtn.setVisible(false);
+				cancBtn.setVisible(true);
+				
+				nmeText.setVisible(false);
+				artText.setVisible(false);
+				albText.setVisible(false);
+				yearText.setVisible(false);
+				
+				nmeField.setEditable(false);
+				artField.setEditable(false);
+				albField.setEditable(false);
+				yearField.setEditable(false);
+				
+				nmeField.setVisible(false);
+				artField.setVisible(false);
+				albField.setVisible(false);
+				yearField.setVisible(false);
+				
+				nmeField.clear();
+				artField.clear();
+				albField.clear();
+				yearField.clear();
+				
 				Alert error = new Alert(AlertType.ERROR);
 				error.initOwner(mainStage);
 				error.setTitle("404 Error: Invalid Edit");
-				error.setHeaderText("Need both a Name and Artist");
-				error.showAndWait();
-				
-				whichBtn = 2;
-				
-				
-				saveBtn.setVisible(true);
-				cancBtn.setVisible(true);
+				error.setHeaderText("Both Name and Artist required\nor\nName and Artist already in library");
+				error.showAndWait();				
+					
 			}
 			
 		}else if(temp == saveBtn && whichBtn == 3) { // delete button clicked
 			
-			boolean success = sLib.delete(currentSong);
+			boolean success = sLib.delete(currentSong) && !(sLib.songList.isEmpty());
 			
 			whichBtn = 0;
 			
@@ -264,34 +310,44 @@ public class Controller {
 			cancBtn.setVisible(false);
 			addBtn.setVisible(true);
 			
+			
 			if(success == true) {
-				sListView.setItems(sLib.songList.sorted(currentSong));
+				if(!(sLib.songList.isEmpty())){
+					sListView.setItems(sLib.songList.sorted(currentSong));
+				}
+				
 				sListView.refresh();
-				if(sListView.getSelectionModel().getSelectedIndex() == 0) {
+				
+				if(!(sListView.getSelectionModel().getSelectedItem().equals(sLib.songList.sorted().get(sLib.songList.sorted().size()-1)))) {
 					sListView.getSelectionModel().selectNext();
 				}
 				
-				if(sLib.songList.size() == 0) {
-					
-					nmeLabel.setText("");
-					artLabel.setText("");
-					albLabel.setText("");
-					yearLabel.setText("");
-					
-					nmeLabel.setVisible(false);
-					artLabel.setVisible(false);
-					albLabel.setVisible(false);
-					yearLabel.setVisible(false);
-					
-					nmeDetText.setVisible(false);
-					artDetText.setVisible(false);
-					albDetText.setVisible(false);
-					yearDetText.setVisible(false);
-					
-				}
+			}else {
+				whichBtn = 0;
+				
+				sListView.refresh();
+				
+				saveBtn.setVisible(false);
+				cancBtn.setVisible(false);
+				addBtn.setVisible(true);
+				
+				nmeLabel.setText("");
+				artLabel.setText("");
+				albLabel.setText("");
+				yearLabel.setText("");
+				
+				nmeLabel.setVisible(false);
+				artLabel.setVisible(false);
+				albLabel.setVisible(false);
+				yearLabel.setVisible(false);
+				
+				nmeDetText.setVisible(false);
+				artDetText.setVisible(false);
+				albDetText.setVisible(false);
+				yearDetText.setVisible(false);
 			}
 		}else {
-			
+	
 		}
 	}
 	
